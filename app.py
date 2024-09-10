@@ -1,14 +1,36 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import requests
+import pickle
+import os
+import gdown
 
-# Cargar el modelo
-model_path = 'model/etr_model.pkl'
+
+
+# Define URLs for the model and scalers on Google Drive
+model_url = 'https://drive.google.com/uc?id=1DsLPMK_7I2SCveok1KN0WcDwing_JqMW'
+scaler_X_url = 'https://drive.google.com/uc?id=1PqathV17_nyDEJ0lnX-AcZDj3z_Q9ReT'
+scaler_y_url = 'https://drive.google.com/uc?id=1V_w4QcOJGj0pc4pGxw1flj6DrJwZURzu'
+
+
+# File paths where the downloaded models will be stored
+model_path = 'etr_model.pkl'
+scaler_X_path = 'scaler_train_X.pkl'
+scaler_y_path = 'scaler_train_Y.pkl'
+
+# Function to download files if not already downloaded
+def download_file(url, output):
+    if not os.path.exists(output):
+        gdown.download(url, output, quiet=False)
+
+# Download the model and scalers
+download_file(model_url, model_path)
+download_file(scaler_X_url, scaler_X_path)
+download_file(scaler_y_url, scaler_y_path)
+
+# Load the model and scalers
 model = joblib.load(model_path)
-
-# Cargar los escaladores
-scaler_X_path = 'model/scaler_train_X.pkl'  
-scaler_y_path = 'model/scaler_train_Y.pkl'
 scaler_X = joblib.load(scaler_X_path)
 scaler_y = joblib.load(scaler_y_path)
 
