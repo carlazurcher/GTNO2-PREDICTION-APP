@@ -1,0 +1,1 @@
+modelo etr_model.pkl está en: https://drive.google.com/file/d/1DsLPMK_7I2SCveok1KN0WcDwing_JqMW/view?usp=share_link
